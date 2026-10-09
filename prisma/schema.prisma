@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Song {
+  id String @id @default(cuid())
+  slug String @unique
+  title String
+  isDemo Boolean @default(false)
+  album Album? @relation(fields: [albumId], references: [id])
+  albumId String?
+  language Language? @relation(fields: [languageId], references: [id])
+  languageId String?
+  artists SongArtist[]
+  platforms SongPlatform[]
+  scores TrendScore[]
+  snapshots TrendSnapshot[]
+  favorites Favorite[]
+  createdAt DateTime @default(now())
+}
+model Artist {
+  id String @id @default(cuid())
+  name String @unique
+  songs SongArtist[]
+}
+model Album {
+  id String @id @default(cuid())
+  title String
+  releaseDate DateTime?
+  artworkUrl String?
+  songs Song[]
+  @@unique([title])
+}
+model SongArtist {
+  songId String
+  artistId String
+  song Song @relation(fields: [songId], references: [id])
+  artist Artist @relation(fields: [artistId], references: [id])
+  @@id([songId, artistId])
+}
+model Language {
+  id String @id @default(cuid())
+  name String @unique
+  songs Song[]
+}
+model Platform {
+  id String @id @default(cuid())
+  name String @unique
+  songs SongPlatform[]
+}
+model SongPlatform {
+  songId String
+  platformId String
+  officialUrl String
+  previewUrl String?
+  song Song @relation(fields: [songId], references: [id])
+  platform Platform @relation(fields: [platformId], references: [id])
+  metrics TrendMetric[]
+  @@id([songId, platformId])
+}
+model TrendMetric {
+  id String @id @default(cuid())
+  songPlatform SongPlatform @relation(fields: [songId, platformId], references: [songId, platformId])
+  songId String
+  platformId String
+  popularity Float?
+  rank Int?
+  momentum Float?
+  measuredAt DateTime @default(now())
+}
+model TrendSnapshot {
+  id String @id @default(cuid())
+  song Song @relation(fields: [songId], references: [id])
+  songId String
+  score Int
+  rank Int?
+  momentum Float?
+  capturedAt DateTime @default(now())
+  @@index([songId, capturedAt])
+}
+model TrendScore {
+  id String @id @default(cuid())
+  song Song @relation(fields: [songId], references: [id])
+  songId String
+  score Int
+  momentum Float?
+  calculatedAt DateTime @default(now())
+}
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  favorites Favorite[]
+  searchHistory SearchHistory[]
+}
+model Favorite {
+  userId String
+  songId String
+  user User @relation(fields: [userId], references: [id])
+  song Song @relation(fields: [songId], references: [id])
+  @@id([userId, songId])
+}
+model SearchHistory {
+  id String @id @default(cuid())
+  query String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  createdAt DateTime @default(now())
+}
+model ProviderSyncStatus {
+  id String @id @default(cuid())
+  providerName String @unique
+  status String
+  lastSuccessAt DateTime?
+  lastError String?
+  itemCount Int @default(0)
+  updatedAt DateTime @updatedAt
+}

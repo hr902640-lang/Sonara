@@ -1,0 +1,14 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { calculateTrendScore, scoreFromTrack } from "../lib/trend-engine";
+import { deduplicateTracks, sameSong } from "../lib/matching";
+import type { ProviderTrack } from "../lib/music-types";
+import { isDataStale, parseDataMode, parseRefreshMinutes } from "../lib/config";
+import { providers } from "../lib/providers";
+const fear: ProviderTrack = { provider: "YouTube", externalId: "1", title: "Fear Song (Official Video)", artists: ["Anirudh Ravichander"], durationMs: 210000, officialUrl: "https://youtube.com/watch?v=1" };
+const spotifyFear: ProviderTrack = { ...fear, provider: "Spotify", externalId: "2", title: "Fear Song", isrc: "INX123", durationMs: 211000, officialUrl: "https://open.spotify.com/track/2" };
+test("trend score is bounded", () => { assert.equal(calculateTrendScore([]), 0); assert.ok(calculateTrendScore([{ normalizedPopularity: 100, momentum: 100, chartWeight: 100 }]) <= 100); });
+test("matching requires compatible title, artist and duration", () => { assert.equal(sameSong(fear, spotifyFear), true); assert.equal(sameSong(fear, { ...spotifyFear, title: "Fearless" }), false); });
+test("duplicates merge without incorrectly dropping provider tracks", () => { assert.equal(deduplicateTracks([fear, spotifyFear]).length, 1); assert.ok(scoreFromTrack({ rank: 1, views: 100 }, [{ rank: 1, views: 100 }, { rank: 2, views: 10 }]) > 0); });
+test("unconfigured providers are reported, and stale data is detectable", () => { assert.ok(providers.some(provider => provider.status().status === "not_configured")); assert.equal(isDataStale(new Date(Date.now() - 60 * 60_000)), true); assert.equal(isDataStale(new Date()), false); });
+test("configuration rejects invalid mode and refresh intervals", () => { assert.equal(parseDataMode(), "demo"); assert.equal(parseDataMode("LIVE"), "live"); assert.throws(() => parseDataMode("production"), /SONORA_DATA_MODE/); assert.equal(parseRefreshMinutes("30"), 30); assert.throws(() => parseRefreshMinutes("0"), /TREND_REFRESH_MINUTES/); assert.equal(isDataStale(new Date(Number.NaN)), true); });

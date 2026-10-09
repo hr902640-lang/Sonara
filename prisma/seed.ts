@@ -1,0 +1,5 @@
+import { PrismaClient } from "@prisma/client";
+import { songs } from "../lib/songs";
+const prisma = new PrismaClient();
+async function main() { if (process.env.SONORA_DATA_MODE === "live") throw new Error("Demo fixtures cannot be seeded while SONORA_DATA_MODE=live."); for (const item of songs) { const language = await prisma.language.upsert({ where: { name: item.language }, update: {}, create: { name: item.language } }); const song = await prisma.song.upsert({ where: { slug: item.id }, update: { title: item.title, languageId: language.id, isDemo: true }, create: { slug: item.id, title: item.title, languageId: language.id, isDemo: true } }); for (const name of item.artist.split(", ")) { const artist = await prisma.artist.upsert({ where: { name }, update: {}, create: { name } }); await prisma.songArtist.upsert({ where: { songId_artistId: { songId: song.id, artistId: artist.id } }, create: { songId: song.id, artistId: artist.id }, update: {} }); } await prisma.trendScore.create({ data: { songId: song.id, score: item.score, momentum: item.movement } }); } }
+main().finally(() => prisma.$disconnect());

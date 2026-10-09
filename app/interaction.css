@@ -1,0 +1,44 @@
+.sideLink{color:#89898f;border-radius:9px;font-size:13px;font-weight:600;margin:2px 0;padding:13px 12px;text-decoration:none}
+.sideLink span{display:inline-block;font-size:19px;vertical-align:-2px;width:30px}
+.sideLink.active,.sideLink:hover,.sideLink:focus-visible{background:#202126;color:#fff}
+.logo{text-decoration:none;color:inherit}
+.ghost{text-decoration:none;display:inline-flex;align-items:center}
+.signin{text-decoration:none;display:inline-flex;align-items:center}
+.songCard:focus-visible,.listen:focus-visible,.sideLink:focus-visible,.mobileNav a:focus-visible{outline:2px solid #dff457;outline-offset:3px}
+.inlineStatus,.inlineError{border:1px solid #303137;border-radius:8px;background:#141518;color:#aaa;padding:13px 15px;font-size:13px}
+.inlineError{border-color:#8f4444;color:#ffb7b7}
+.down{color:#ff9e9e}
+.modal .close{z-index:2}
+.simplePage,.discoveryPage{display:block;min-height:100vh;margin:0 auto;width:min(900px,100%);padding:64px 28px;background:none}
+.simplePage h1,.discoveryPage h1{font-size:clamp(38px,7vw,64px);letter-spacing:-2px;margin:12px 0 18px}
+.simplePage h1 em,.discoveryPage h1 em{font-family:'Playfair Display';font-weight:500;color:#dce95a}
+.simplePage p,.discoveryIntro{max-width:700px;color:#aaa;line-height:1.8}
+.simplePage .primary{display:inline-block;margin-top:18px;text-decoration:none}
+.simplePage h2{margin-top:32px}
+.discoveryLogo{display:inline-block;margin-bottom:54px;color:#e0ff55;font-weight:800;letter-spacing:2px;text-decoration:none}
+.discoveryIntro{margin-bottom:24px}
+.discoveryMode,.discoveryNotice,.discoveryStatus,.discoveryError{color:#aaa;font-size:13px;line-height:1.7}
+.discoveryNotice{padding:10px 13px;background:#17181b;border:1px solid #303137;border-radius:7px}
+.discoveryError{color:#ffb7b7}
+.discoverySearch{display:grid;gap:8px;max-width:600px;margin:30px 0 18px;color:#aaa;font-size:12px}
+.discoverySearch input{border:1px solid #303137;border-radius:7px;background:#17181b;color:#f4f3ef;padding:13px 15px;outline-color:#dff457}
+.discoveryList{list-style:none;padding:0;margin:28px 0}
+.discoveryList li{border-top:1px solid #303137}
+.discoveryList li>a{display:flex;align-items:center;gap:16px;padding:16px 10px;color:inherit;text-decoration:none}
+.discoveryList li>a:hover,.discoveryList li>a:focus-visible{background:#17181b}
+.discoveryRank{width:32px;color:#dff457;font:12px 'DM Mono';text-align:center}
+.discoverySong{display:grid;gap:4px;flex:1;min-width:0}
+.discoverySong strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.discoverySong small{color:#999;font-size:11px}
+.discoveryScore{color:#aaa;font:11px 'DM Mono';text-align:right}
+.discoveryArrow{color:#dff457}
+.discoveryBack{color:#dff457;text-decoration:none;font-size:13px}
+.providerSettings{list-style:none;padding:0}
+.providerSettings li{display:grid;grid-template-columns:1fr auto;gap:5px 20px;border-top:1px solid #303137;padding:13px 0}
+.providerSettings li span{color:#dce95a;font-size:12px}
+.providerSettings li small{grid-column:1/-1;color:#999;line-height:1.6}
+.providerSettings code{color:#e0ff55}
+.songOfficialLinks{padding-left:18px;line-height:2}
+.songOfficialLinks a{color:#dff457}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(180px,1fr))}.content{padding-left:28px;padding-right:28px}}
+@media(max-width:680px){aside{display:none}.content{margin-left:0;width:100%;padding:16px 17px 98px}.hero{padding-top:58px}.hero h1{letter-spacing:-2px}.heroGlow{right:-260px}.pulse{align-items:flex-start;gap:12px;flex-direction:column;margin-bottom:38px}.pulse div{flex-wrap:wrap;gap:8px}.providerLine{overflow:auto}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr;margin-top:45px}.mobileNav{position:fixed;z-index:5;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:11px 8px calc(11px + env(safe-area-inset-bottom));background:#111216f2;border-top:1px solid #303137}.mobileNav a{color:#aaa;text-decoration:none;font-size:12px;padding:7px}.mobileNav a[href="/"]{color:#dff457}.modal{max-height:90vh;overflow:auto;grid-template-columns:1fr}.modal .largeArt{min-height:160px;height:180px}.simplePage,.discoveryPage{padding:36px 20px}.discoveryLogo{margin-bottom:40px}.discoveryList li>a{gap:10px;padding:14px 5px}.discoveryScore{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}

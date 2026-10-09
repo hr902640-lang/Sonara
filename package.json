@@ -1,0 +1,34 @@
+{
+  "name": "sonora-india",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "sync:trends": "tsx jobs/sync-trends.ts",
+    "db:seed": "tsx prisma/seed.ts",
+    "test": "tsx --test tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.12.0",
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "eslint": "^10.12.0",
+    "prisma": "6.12.0",
+    "typescript-eslint": "^8.71.1",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "^8.5.23"
+  }
+}

@@ -1,0 +1,1 @@
+export function OfficialLink({ href, platform }: { href: string; platform: string }) { return <a className="listen" href={href} target="_blank" rel="noreferrer">{platform}<span>Official link ↗</span></a>; }
